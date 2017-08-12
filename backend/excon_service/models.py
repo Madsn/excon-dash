@@ -18,7 +18,7 @@ class State(models.Model):
     clock_real_seed - real time for t=0 on the virtual clock
     """
     current_event = models.IntegerField(blank=True)
-    message = models.CharField(max_length=250)
+    message = models.CharField(max_length=250, blank=True)
     clock_virt_seed = models.DateTimeField(blank=False, null=False)
     clock_virt_rate = models.FloatField(blank=False, null=False)
     clock_real_seed = models.DateTimeField(blank=False, null=False)
