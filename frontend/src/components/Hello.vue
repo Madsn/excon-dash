@@ -1,22 +1,24 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-card>
+          <h4 class="text-xs-center">Current MSEL #</h4>
+          <h1 class="text-xs-center">{{eventNumber}}</h1>
+        </v-card>
+      </v-flex>
+      <v-flex xs6>
+        <v-card>
+          <h4 class="text-xs-center">Ex. clock. Current speed: {{virtualClockRate}}x</h4>
+          <h1 class="text-xs-center">{{virtualClockTime}}</h1>
+        </v-card>
+      </v-flex>
+      <v-flex xs12>
+        <v-card style="padding-bottom: 16px; padding-top: 8px;">
+          <h1 class="text-xs-center">{{message}}</h1>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -25,7 +27,10 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      message: 'This is a test message, what should the length limit be for this type of message?',
+      eventNumber: 123,
+      virtualClockRate: 10,
+      virtualClockTime: '11:47:13'
     }
   }
 }
