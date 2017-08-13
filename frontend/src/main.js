@@ -2,16 +2,20 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import App from './App'
+import App from './App.vue'
 import router from './router'
+import VueNativeSock from 'vue-native-websocket'
+import moment from 'moment'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
+Vue.use(VueNativeSock, 'ws://localhost:8888/api/v1/ws')
+Vue.prototype.moment = moment
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
