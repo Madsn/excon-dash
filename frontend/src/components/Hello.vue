@@ -24,15 +24,11 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'hello',
     created () {
-      this.$socket.onmessage = (msg) => {
-        console.log(msg)
-        let payload = JSON.parse(msg.data).payload.data
-        console.log(payload)
-        this.updateState(payload)
-      }
       var self = this
       setInterval(function () {
         // this.now = this.moment()
@@ -44,13 +40,17 @@
     },
     data () {
       return {
-        message: '-',
-        eventNumber: '-',
-        virtualClockRate: '_',
-        virtualClockSeed: null,
-        realClockSeed: null,
         virtualClockTime: '-'
       }
+    },
+    computed: {
+      ...mapGetters({
+        virtualClockSeed: 'virtualClockSeed',
+        virtualClockRate: 'virtualClockRate',
+        realClockSeed: 'realClockSeed',
+        message: 'message',
+        eventNumber: 'eventNumber'
+      })
     },
     methods: {
       updateVirtualClockTime: function () {
@@ -61,13 +61,6 @@
         let diffRealToNow = now.diff(this.realClockSeed, 'seconds')
         let adjustedDiffRealToNow = diffRealToNow * (this.virtualClockRate - 1)
         this.virtualClockTime = this.virtualClockSeed.clone().add(diffRealToNow + adjustedDiffRealToNow, 'seconds').format('HH:mm:ss')
-      },
-      updateState: function (payload) {
-        this.message = payload.message ? payload.message : '-'
-        this.eventNumber = payload.current_event
-        this.virtualClockSeed = this.moment(payload.clock_virt_seed, this.moment.ISO_8601)
-        this.virtualClockRate = payload.clock_virt_rate
-        this.realClockSeed = this.moment(payload.clock_real_seed, this.moment.ISO_8601)
       }
     }
   }

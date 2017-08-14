@@ -20,7 +20,8 @@
     "vue-native-websocket": "^2.0.3",
     "vue-router": "^2.3.1",
     "vue-socket.io": "^2.1.1-a",
-    "vuetify": "^0.14.7"
+    "vuetify": "^0.14.7",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
