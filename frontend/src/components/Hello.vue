@@ -27,23 +27,20 @@
   export default {
     name: 'hello',
     created () {
-      this.$options.sockets.onmessage = (msg) => {
+      this.$socket.onmessage = (msg) => {
         console.log(msg)
         let payload = JSON.parse(msg.data).payload.data
         console.log(payload)
-        this.message = payload.message ? payload.message : '-'
-        this.eventNumber = payload.current_event
-        this.virtualClockSeed = this.moment(payload.clock_virt_seed, this.moment.ISO_8601)
-        this.virtualClockRate = payload.clock_virt_rate
-        this.realClockSeed = this.moment(payload.clock_real_seed, this.moment.ISO_8601)
+        this.updateState(payload)
       }
-
       var self = this
       setInterval(function () {
-        console.log('updating ticker')
         // this.now = this.moment()
         self.updateVirtualClockTime()
       }, 1000)
+    },
+    destroyed () {
+      delete this.$socket.onmessage
     },
     data () {
       return {
@@ -58,22 +55,24 @@
     methods: {
       updateVirtualClockTime: function () {
         if (this.virtualClockSeed === null || this.realClockSeed === null) {
-          console.log(this.virtualClockSeed)
-          console.log(this.realClockSeed)
           return null
         }
         let now = this.moment()
         let diffRealToNow = now.diff(this.realClockSeed, 'seconds')
-        console.log(diffRealToNow)
         let adjustedDiffRealToNow = diffRealToNow * (this.virtualClockRate - 1)
-        console.log(adjustedDiffRealToNow)
         this.virtualClockTime = this.virtualClockSeed.clone().add(diffRealToNow + adjustedDiffRealToNow, 'seconds').format('HH:mm:ss')
+      },
+      updateState: function (payload) {
+        this.message = payload.message ? payload.message : '-'
+        this.eventNumber = payload.current_event
+        this.virtualClockSeed = this.moment(payload.clock_virt_seed, this.moment.ISO_8601)
+        this.virtualClockRate = payload.clock_virt_rate
+        this.realClockSeed = this.moment(payload.clock_real_seed, this.moment.ISO_8601)
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .messageCard {
     padding: 16px 32px 16px 32px;

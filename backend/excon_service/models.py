@@ -21,7 +21,7 @@ class State(models.Model):
     message = models.CharField(max_length=250, blank=True)
     clock_virt_seed = models.DateTimeField(blank=False, null=False)
     clock_virt_rate = models.FloatField(blank=False, null=False)
-    clock_real_seed = models.DateTimeField(blank=False, null=False)
+    clock_real_seed = models.DateTimeField(auto_now=True, blank=False, null=False)
 
     def clean(self):
         """
