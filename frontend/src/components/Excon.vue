@@ -11,14 +11,12 @@
                                 :virtualClockRate="virtualClockRate"
                                 :virtualClockTime="virtualClockTime">
       </excon-virtual-clock-card>
-        <v-card>
-          <h4 class="text-xs-center">Real time</h4>
-          <h2 class="text-xs-center">{{realClockTime}}</h2>
-        </v-card>
-      </v-flex>
+      <excon-real-clock-card :limitedView="limitedView"
+                             :realClockTime="realClockTime">
+      </excon-real-clock-card>
     </v-layout>
-    <v-layout row>
-      <v-flex xs12>
+    <v-layout row v-if="!limitedView">
+      <v-flex xs12 fill-height>
         <v-card>
           <h4 class="text-xs-center">Message from EXCON</h4>
           <h2 class="text-xs-center">{{message}}</h2>
@@ -30,9 +28,15 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import ExconVirtualClockCard from './ExconVirtualClockCard'
+  import ExconRealClockCard from './ExconRealClockCard'
 
   export default {
     name: 'hello',
+    components: {
+      ExconVirtualClockCard,
+      ExconRealClockCard
+    },
     created () {
       var self = this
       setInterval(function () {
@@ -85,6 +89,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
   }
+
   .card {
     padding: 16px 32px 2px 32px;
   }
