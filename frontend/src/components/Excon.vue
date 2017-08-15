@@ -7,13 +7,10 @@
           <h2 class="text-xs-center">{{eventNumber}}</h2>
         </v-card>
       </v-flex>
-      <v-flex xs12 md6 lg4="limitedView">
-        <v-card>
-          <h4 class="text-xs-center">Exercise time, speed: <b>{{virtualClockRate}}x</b></h4>
-          <h2 class="text-xs-center">{{virtualClockTime}}</h2>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 md6 lg4="!limitedView">
+      <excon-virtual-clock-card :limitedView="limitedView"
+                                :virtualClockRate="virtualClockRate"
+                                :virtualClockTime="virtualClockTime">
+      </excon-virtual-clock-card>
         <v-card>
           <h4 class="text-xs-center">Real time</h4>
           <h2 class="text-xs-center">{{realClockTime}}</h2>
