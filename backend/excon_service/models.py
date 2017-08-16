@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -36,15 +36,22 @@ class State(models.Model):
 class StateChange(models.Model):
     created_at = models.DateTimeField(editable=False)
     event_number = models.IntegerField(blank=True)
-    # TODO: If new virtual clock not supplied, calculate based on previous event
-    virtual_clock = models.DateTimeField(blank=True)
+    virtual_clock = models.DateTimeField(blank=True, null=True)
     # Set speed to 0 to pause clock
     clock_speed = models.FloatField()
 
     def save(self, *args, **kwargs):
-        """ On creation, set created_at """
+        """ On creation, set created_at and calculate virtual clock if none supplied """
         if not self.id:
-            now = timezone.now()
+            now = timezone.now().replace(microsecond=0)
             self.created_at = now
+            if not self.virtual_clock:
+                previous = StateChange.objects.all().order_by("-id").first()
+                if previous is not None and previous.virtual_clock is not None:
+                    diff = (now - previous.created_at).total_seconds()
+                    diff_with_speed = diff * previous.clock_speed
+                    self.virtual_clock = previous.virtual_clock + timedelta(seconds=diff_with_speed)
         return super(StateChange, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return "{0} - {1} - {2} - {3}".format(self.id, self.created_at, self.virtual_clock, self.clock_speed)
