@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 
 def validate_only_one_instance(obj):
@@ -28,3 +31,20 @@ class State(models.Model):
         Don't allow saving more than 1 config row
         """
         validate_only_one_instance(self)
+
+
+class StateChange(models.Model):
+    created_at = models.DateTimeField(editable=False)
+    event_number = models.IntegerField(blank=True)
+    # TODO: If new virtual clock not supplied, calculate based on previous event
+    virtual_clock = models.DateTimeField(blank=True)
+    # Set speed to 0 to pause clock
+    clock_speed = models.FloatField()
+
+    def save(self, *args, **kwargs):
+        """ On creation, set created_at """
+        if not self.id:
+            now = timezone.now()
+            self.created_at = now
+        return super(StateChange, self).save(*args, **kwargs)
+
