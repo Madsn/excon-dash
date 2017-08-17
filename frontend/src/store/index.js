@@ -20,23 +20,17 @@ import { WebSocketBridge } from 'django-channels'
 
 const webSocketBridge = new WebSocketBridge()
 webSocketBridge.connect('ws://localhost:8888/api/v1/ws/')
-console.log(webSocketBridge)
-/*
-webSocketBridge.socket.addEventListener('open', function () {
-  webSocketBridge.stream('getState').send({prop1: 'value1', prop2: 'value1'})
-})
-*/
 webSocketBridge.socket.addEventListener('message', function (msg) {
-  store.dispatch(types.SOCKET_ONMESSAGE, this.state, msg)
+  store.commit(types.SOCKET_ONMESSAGE, msg)
 })
 webSocketBridge.socket.addEventListener('open', function (msg) {
-  store.dispatch(types.SOCKET_ONOPEN, this.state, msg)
+  store.commit(types.SOCKET_ONOPEN, msg)
 })
 webSocketBridge.socket.addEventListener('close', function (msg) {
-  store.dispatch(types.SOCKET_ONCLOSE, this.state, msg)
+  store.commit(types.SOCKET_ONCLOSE, msg)
 })
 webSocketBridge.socket.addEventListener('error', function (msg) {
-  store.dispatch(types.SOCKET_ONERROR, this.state, msg)
+  store.commit(types.SOCKET_ONERROR, msg)
 })
 
 export default store

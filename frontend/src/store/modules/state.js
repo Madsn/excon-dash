@@ -40,7 +40,6 @@ const actions = {
 // mutations
 const mutations = {
   [types.SOCKET_ONOPEN] (state, event) {
-    state.socket = event.target
     state.socketConnected = true
   },
   [types.SOCKET_ONCLOSE] (state, event) {
@@ -51,7 +50,9 @@ const mutations = {
   },
   // default handler called for all methods
   [types.SOCKET_ONMESSAGE] (state, message) {
+    console.log('message')
     console.log(message)
+    console.log(state)
     let payload = JSON.parse(message.data).payload.data
     state.message = payload.message ? payload.message : '-'
     state.eventNumber = payload.current_event
