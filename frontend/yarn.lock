@@ -1789,6 +1789,12 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+django-channels@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/django-channels/-/django-channels-1.1.5.tgz#f9fa40242c43f48b07465171188df589aab07b55"
+  dependencies:
+    reconnecting-websocket "^3.0.3"
+
 doctrine@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.0.0.tgz#c73d8d2909d22291e1a007a395804da8b665fe63"
@@ -4994,6 +5000,10 @@ rechoir@^0.6.2:
   resolved "https://registry.yarnpkg.com/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
   dependencies:
     resolve "^1.1.6"
+
+reconnecting-websocket@^3.0.3:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/reconnecting-websocket/-/reconnecting-websocket-3.1.1.tgz#1a5efb08918a645841dd1ba43f45b55de36f65e0"
 
 redent@^1.0.0:
   version "1.0.0"
