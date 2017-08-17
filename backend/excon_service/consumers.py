@@ -15,8 +15,9 @@ class GetStateConsumer(JsonWebsocketConsumer):
 class Demultiplexer(WebsocketDemultiplexer):
     consumers = {
         "state": binding.StateBinding.consumer,
-        "getState": GetStateConsumer
+        "getState": GetStateConsumer,
+        "state-change": binding.StateChangeBinding.consumer
     }
 
     def connection_groups(self):
-        return ["state-updates"]
+        return ["state-updates", "state-change-updates"]
