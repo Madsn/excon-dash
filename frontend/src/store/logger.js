@@ -5,11 +5,11 @@ import {
 } from './util'
 
 export default function createLogger ({
-                                        collapsed = true,
-                                        filter = (mutation, stateBefore, stateAfter) => true,
-                                        transformer = state => state,
-                                        mutationTransformer = mut => mut
-                                      } = {}) {
+  collapsed = true,
+  filter = (mutation, stateBefore, stateAfter) => true,
+  transformer = state => state,
+  mutationTransformer = mut => mut
+} = {}) {
   return store => {
     let prevState = deepCopy(store.state)
 
