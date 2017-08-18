@@ -1,11 +1,7 @@
 <template>
-  <!--<v-flex xs12 fill-height>-->
-  <div>
-    <div>
-      <h4 class="text-xs-center">Message from EXCON</h4>
+  <b-card header="Message from EXCON">
       <h2 class="text-xs-center">{{message}}</h2>
-    </div>
-  </div>
+  </b-card>
 </template>
 <script>
   export default {

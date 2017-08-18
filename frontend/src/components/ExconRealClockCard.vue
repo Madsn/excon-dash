@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h4 class="text-xs-center">Real time</h4>
+  <b-card header="Real time">
     <h2 class="text-xs-center">{{realClockTime}}</h2>
-  </div>
+  </b-card>
 </template>
 <script>
   export default {

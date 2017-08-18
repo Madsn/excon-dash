@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h4 class="text-xs-center">Current event #</h4>
-    <h2 class="text-xs-center">{{eventNumber}}</h2>
-  </div>
+  <b-card header="Current event #">
+    <p>{{eventNumber}}</p>
+  </b-card>
 </template>
 <script>
   export default {
