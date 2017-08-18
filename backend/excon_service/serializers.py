@@ -3,7 +3,7 @@ from rest_framework import serializers
 from . import models
 
 
-class StateSerializer(serializers.ModelSerializer):
+class StateChangeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.State
+        model = models.StateChange
         fields = '__all__'
