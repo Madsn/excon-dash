@@ -1,26 +1,34 @@
 <template>
   <div>
     <v-layout row wrap>
-      <v-flex xs12 md12 lg4 v-if="!limitedView">
-        <v-card>
-          <h4 class="text-xs-center">Current event #</h4>
-          <h2 class="text-xs-center">{{eventNumber}}</h2>
-        </v-card>
+      <v-flex xs12 md4 lg4 v-if="!limitedView">
+        <excon-current-event-card :eventNumber="eventNumber">
+        </excon-current-event-card>
       </v-flex>
-      <excon-virtual-clock-card :limitedView="limitedView"
-                                :virtualClockRate="virtualClockRate"
-                                :virtualClockTime="virtualClockTime">
-      </excon-virtual-clock-card>
-      <excon-real-clock-card :limitedView="limitedView"
-                             :realClockTime="realClockTime">
-      </excon-real-clock-card>
+      <v-flex xs12 md8 lg8 v-if="!limitedView">
+        <excon-virtual-clock-card :virtualClockRate="virtualClockRate"
+                                  :virtualClockTime="virtualClockTime">
+        </excon-virtual-clock-card>
+      </v-flex>
+      <v-flex xs12 md12 v-else="limitedView">
+        <excon-virtual-clock-card :virtualClockRate="virtualClockRate"
+                                  :virtualClockTime="virtualClockTime">
+        </excon-virtual-clock-card>
+      </v-flex>
     </v-layout>
     <v-layout row v-if="!limitedView">
-      <v-flex xs12 fill-height>
+      <excon-message-card :message="message"></excon-message-card>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs12 md6 lg8>
         <v-card>
-          <h4 class="text-xs-center">Message from EXCON</h4>
+          <h4 class="text-xs-center">Message for all</h4>
           <h2 class="text-xs-center">{{message}}</h2>
         </v-card>
+      </v-flex>
+      <v-flex xs12 md6 lg4>
+        <excon-real-clock-card :realClockTime="realClockTime">
+        </excon-real-clock-card>
       </v-flex>
     </v-layout>
   </div>
@@ -30,12 +38,18 @@
   import { mapGetters } from 'vuex'
   import ExconVirtualClockCard from './ExconVirtualClockCard'
   import ExconRealClockCard from './ExconRealClockCard'
+  import ExconCurrentEventCard from './ExconCurrentEventCard'
+  import ExconMessageCard from './ExconMessageCard'
+  import VCardMedia from 'vuetify/src/components/cards/VCardMedia'
 
   export default {
     name: 'excon',
     components: {
+      VCardMedia,
       ExconVirtualClockCard,
-      ExconRealClockCard
+      ExconRealClockCard,
+      ExconCurrentEventCard,
+      ExconMessageCard
     },
     props: [
       'limitedView'
