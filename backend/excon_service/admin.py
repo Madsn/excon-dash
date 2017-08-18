@@ -3,7 +3,7 @@ from .models import StateChange
 
 
 class StateChangeAdmin(admin.ModelAdmin):
-    readonly_fields = ('created_at',)
+    readonly_fields = ('created',)
 
 
 admin.site.register(StateChange, StateChangeAdmin)

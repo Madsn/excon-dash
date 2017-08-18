@@ -148,6 +148,7 @@ CHANNEL_LAYERS = {
     },
 }
 
+"""
 LOGGING = {
     'version': 1,
     'filters': {
@@ -169,3 +170,4 @@ LOGGING = {
         }
     }
 }
+"""

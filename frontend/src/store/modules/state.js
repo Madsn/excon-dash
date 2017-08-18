@@ -4,12 +4,11 @@ import moment from 'moment'
 // initial state
 const state = {
   socketConnected: false,
-  socket: null,
   message: '-',
   eventNumber: '-',
   virtualClockRate: '_',
   virtualClockSeed: null,
-  realClockSeed: null
+  stateChangeTimestamp: null
 }
 
 // getters
@@ -18,7 +17,7 @@ const getters = {
   eventNumber: state => state.eventNumber,
   virtualClockRate: state => state.virtualClockRate,
   virtualClockSeed: state => state.virtualClockSeed,
-  realClockSeed: state => state.realClockSeed
+  stateChangeTimestamp: state => state.stateChangeTimestamp
 }
 
 // actions
@@ -54,11 +53,12 @@ const mutations = {
     console.log(message)
     console.log(state)
     let payload = JSON.parse(message.data).payload.data
+    if (payload === null) return
     state.message = payload.message ? payload.message : '-'
-    state.eventNumber = payload.current_event
-    state.virtualClockSeed = moment(payload.clock_virt_seed, moment.ISO_8601)
-    state.virtualClockRate = payload.clock_virt_rate
-    state.realClockSeed = moment(payload.clock_real_seed, moment.ISO_8601)
+    state.eventNumber = payload.event_number ? payload.event_number : '-'
+    state.virtualClockSeed = payload.virtual_clock ? moment(payload.virtual_clock, moment.ISO_8601) : null
+    state.virtualClockRate = payload.clock_speed ? payload.clock_speed : 0
+    state.stateChangeTimestamp = payload.created ? moment(payload.created, moment.ISO_8601) : null
   }
 }
 

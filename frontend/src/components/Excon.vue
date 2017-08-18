@@ -45,9 +45,6 @@
         self.updateRealClockTime()
       }, 1000)
     },
-    destroyed () {
-      delete this.$socket.onmessage
-    },
     data () {
       return {
         virtualClockTime: '-',
@@ -61,20 +58,20 @@
       ...mapGetters({
         virtualClockSeed: 'virtualClockSeed',
         virtualClockRate: 'virtualClockRate',
-        realClockSeed: 'realClockSeed',
+        stateChangeTimestamp: 'stateChangeTimestamp',
         message: 'message',
         eventNumber: 'eventNumber'
       })
     },
     methods: {
       updateVirtualClockTime: function () {
-        if (this.virtualClockSeed === null || this.realClockSeed === null) {
+        if (this.virtualClockSeed === null || this.stateChangeTimestamp === null) {
           return null
         }
         let now = this.moment()
-        let diffRealToNow = now.diff(this.realClockSeed, 'seconds')
+        let diffRealToNow = now.diff(this.stateChangeTimestamp, 'seconds')
         let adjustedDiffRealToNow = diffRealToNow * (this.virtualClockRate - 1)
-        this.virtualClockTime = this.virtualClockSeed.clone().add(diffRealToNow + adjustedDiffRealToNow, 'seconds')
+        this.virtualClockTime = this.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
           .format('DDHHmm[D]MMMYY').toUpperCase()
       },
       updateRealClockTime: function () {
