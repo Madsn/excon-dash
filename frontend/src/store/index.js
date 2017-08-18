@@ -33,4 +33,9 @@ webSocketBridge.socket.addEventListener('error', function (msg) {
   store.commit(types.SOCKET_ONERROR, msg)
 })
 
+setInterval(function () {
+  // this.now = this.moment()
+  store.commit(types.UPDATE_CLOCKS)
+}, 1000)
+
 export default store

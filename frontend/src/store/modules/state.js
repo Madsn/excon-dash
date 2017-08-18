@@ -8,16 +8,18 @@ const state = {
   eventNumber: '-',
   virtualClockRate: '_',
   virtualClockSeed: null,
-  stateChangeTimestamp: null
+  stateChangeTimestamp: null,
+  virtualClockTime: null,
+  realClockTime: null
 }
 
 // getters
 const getters = {
   message: state => state.message,
   eventNumber: state => state.eventNumber,
+  virtualClockTime: state => state.virtualClockTime,
   virtualClockRate: state => state.virtualClockRate,
-  virtualClockSeed: state => state.virtualClockSeed,
-  stateChangeTimestamp: state => state.stateChangeTimestamp
+  realClockTime: state => state.realClockTime
 }
 
 // actions
@@ -59,6 +61,17 @@ const mutations = {
     state.virtualClockSeed = payload.virtual_clock ? moment(payload.virtual_clock, moment.ISO_8601) : null
     state.virtualClockRate = payload.clock_speed ? payload.clock_speed : 0
     state.stateChangeTimestamp = payload.created ? moment(payload.created, moment.ISO_8601) : null
+  },
+  [types.UPDATE_CLOCKS] (state, message) {
+    if (state.virtualClockSeed === null || state.stateChangeTimestamp === null) {
+      return null
+    }
+    let now = moment()
+    let diffRealToNow = now.diff(state.stateChangeTimestamp, 'seconds')
+    let adjustedDiffRealToNow = diffRealToNow * (state.virtualClockRate - 1)
+    state.virtualClockTime = state.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
+      .format('DDHHmm[D]MMMYY').toUpperCase()
+    state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
   }
 }
 

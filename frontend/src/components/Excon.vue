@@ -37,50 +37,17 @@
       ExconVirtualClockCard,
       ExconRealClockCard
     },
-    created () {
-      var self = this
-      this.refreshInterval = setInterval(function () {
-        // this.now = this.moment()
-        self.updateVirtualClockTime()
-        self.updateRealClockTime()
-        console.log('Interval running in excon')
-      }, 1000)
-    },
-    destroyed () {
-      clearInterval(this.refreshInterval)
-    },
-    data () {
-      return {
-        virtualClockTime: '-',
-        realClockTime: '-'
-      }
-    },
     props: [
       'limitedView'
     ],
     computed: {
       ...mapGetters({
-        virtualClockSeed: 'virtualClockSeed',
+        virtualClockTime: 'virtualClockTime',
         virtualClockRate: 'virtualClockRate',
-        stateChangeTimestamp: 'stateChangeTimestamp',
+        realClockTime: 'realClockTime',
         message: 'message',
         eventNumber: 'eventNumber'
       })
-    },
-    methods: {
-      updateVirtualClockTime: function () {
-        if (this.virtualClockSeed === null || this.stateChangeTimestamp === null) {
-          return null
-        }
-        let now = this.moment()
-        let diffRealToNow = now.diff(this.stateChangeTimestamp, 'seconds')
-        let adjustedDiffRealToNow = diffRealToNow * (this.virtualClockRate - 1)
-        this.virtualClockTime = this.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
-          .format('DDHHmm[D]MMMYY').toUpperCase()
-      },
-      updateRealClockTime: function () {
-        this.realClockTime = this.moment().format('DDHHmm[D]MMMYY').toUpperCase()
-      }
     }
   }
 </script>
