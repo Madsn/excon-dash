@@ -1,32 +1,36 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-md-6">
+    <!--<v-layout row wrap>-->
+      <!--<v-flex xs12 md4 lg4 v-if="!limitedView">-->
         <excon-current-event-card :eventNumber="eventNumber">
         </excon-current-event-card>
-      </div>
-      <div class="col-md-6">
+      <!--</v-flex>-->
+      <!--<v-flex xs12 md8 lg8 v-if="!limitedView">-->
         <excon-virtual-clock-card :virtualClockRate="virtualClockRate"
                                   :virtualClockTime="virtualClockTime">
         </excon-virtual-clock-card>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <excon-message-card :message="message"></excon-message-card>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <b-card header="Message for all">
+      <!--</v-flex>-->
+      <!--<v-flex xs12 md12 v-else="limitedView">-->
+        <excon-virtual-clock-card :virtualClockRate="virtualClockRate"
+                                  :virtualClockTime="virtualClockTime">
+        </excon-virtual-clock-card>
+      <!--</v-flex>-->
+    <!--</v-layout>-->
+    <!--<v-layout row v-if="!limitedView">-->
+      <excon-message-card :message="message"></excon-message-card>
+    <!--</v-layout>-->
+    <!--<v-layout row wrap>-->
+      <!--<v-flex xs12 md6 lg8>-->
+        <div>
+          <h4 class="text-xs-center">Message for all</h4>
           <h2 class="text-xs-center">{{message}}</h2>
-        </b-card>
-      </div>
-      <div class="col-md-6">
+        </div>
+      <!--</v-flex>-->
+      <!--<v-flex xs12 md6 lg4>-->
         <excon-real-clock-card :realClockTime="realClockTime">
         </excon-real-clock-card>
-      </div>
-    </div>
+      <!--</v-flex>-->
+    <!--</v-layout>-->
   </div>
 </template>
 
@@ -61,8 +65,12 @@
 </script>
 
 <style>
+  .flex {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
   .card {
-    min-height: 132px;
-    margin-top: 10px;
+    padding: 16px 32px 2px 32px;
   }
 </style>

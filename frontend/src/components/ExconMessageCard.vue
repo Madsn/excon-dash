@@ -1,7 +1,11 @@
 <template>
-  <b-card header="Message from EXCON">
+  <!--<v-flex xs12 fill-height>-->
+  <div>
+    <div>
+      <h4 class="text-xs-center">Message from EXCON</h4>
       <h2 class="text-xs-center">{{message}}</h2>
-  </b-card>
+    </div>
+  </div>
 </template>
 <script>
   export default {
