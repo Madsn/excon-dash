@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <v-card>
       <h4 class="text-xs-center">Exercise time, speed: <b>{{virtualClockRate}}x</b></h4>
       <h2 class="text-xs-center">{{virtualClockTime}}</h2>
-    </div>
+    </v-card>
 </template>
 <script>
   export default {
