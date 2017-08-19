@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import vcta from './modules/state'
 import createLogger from './logger'
 import * as types from './mutation-types'
-import { WebSocketBridge } from 'django-channels'
 
 Vue.use(Vuex)
 
@@ -16,6 +15,8 @@ const store = new Vuex.Store({
   strict: debug,
   plugins: debug ? [createLogger()] : []
 })
+
+import { WebSocketBridge } from 'django-channels'
 
 const webSocketBridge = new WebSocketBridge()
 webSocketBridge.connect('ws://localhost:8888/api/v1/ws/')
