@@ -2,12 +2,11 @@
   <div>
     <v-layout row wrap>
       <v-flex md12 lg4 v-if="!limitedView">
-        <excon-current-event-card :eventNumber="eventNumber">
+        <excon-current-event-card>
         </excon-current-event-card>
       </v-flex>
       <v-flex md12 lg8 v-if="!limitedView">
-        <excon-virtual-clock-card :virtualClockRate="virtualClockRate"
-                                  :virtualClockTime="virtualClockTime">
+        <excon-virtual-clock-card>
         </excon-virtual-clock-card>
       </v-flex>
       <v-flex xs12 md12 v-else="limitedView">
@@ -19,7 +18,7 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 md6 offset-md6 lg4 offset-lg8>
-        <excon-real-clock-card :realClockTime="realClockTime">
+        <excon-real-clock-card>
         </excon-real-clock-card>
       </v-flex>
     </v-layout>
@@ -48,11 +47,7 @@
     ],
     computed: {
       ...mapGetters({
-        virtualClockTime: 'virtualClockTime',
-        virtualClockRate: 'virtualClockRate',
-        realClockTime: 'realClockTime',
-        message: 'message',
-        eventNumber: 'eventNumber'
+        message: 'message'
       })
     }
   }
@@ -67,5 +62,6 @@
   .card {
     padding: 16px 32px 2px 32px;
     min-height: 184px;
+    margin: 0 4px;
   }
 </style>

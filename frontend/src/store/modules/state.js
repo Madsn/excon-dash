@@ -71,7 +71,7 @@ const mutations = {
     let adjustedDiffRealToNow = diffRealToNow * (state.virtualClockRate)
     state.virtualClockTime = state.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
       .format('DDHHmm[D]MMMYY (HH:mm:ss)').toUpperCase()
-    state.realClockTime = moment() // .format('DDHHmm[D]MMMYY').toUpperCase()
+    state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="elevation-10">
     <excon-card-title :title="cardTitle"></excon-card-title>
     <h2 class="text-xs-center">{{virtualClockTime}}</h2>
   </v-card>
