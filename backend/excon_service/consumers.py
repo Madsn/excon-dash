@@ -1,8 +1,9 @@
-from channels.generic.websockets import WebsocketDemultiplexer, JsonWebsocketConsumer
+from channels.generic.websockets import WebsocketDemultiplexer, JsonWebsocketConsumer, WebsocketConsumer
 
 from .serializers import StateChangeSerializer
 from .models import StateChange
 from . import binding
+import random
 
 
 class GetStateConsumer(JsonWebsocketConsumer):
@@ -13,12 +14,15 @@ class GetStateConsumer(JsonWebsocketConsumer):
 
 
 class AdminChangesConsumer(JsonWebsocketConsumer):
+
     def receive(self, content, **kwargs):
         """
         Called with decoded JSON content.
         """
+        n = random.randint(0,500)
         print("received: {0}".format(content))
-        pass
+        new_obj = StateChange(event_number=n, clock_speed=5)
+        new_obj.save()
 
     def send(self, content, close=False):
         """
