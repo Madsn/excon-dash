@@ -4,6 +4,7 @@ import moment from 'moment'
 // initial state
 const state = {
   socketConnected: false,
+  socket: null,
   message: '-',
   eventNumber: '-',
   virtualClockRate: '_',
@@ -24,11 +25,11 @@ const getters = {
 
 // actions
 const actions = {
-  incrementEventNumber () {
-    // .sendObj({action: 'incrementEventNumber'})
+  incrementEventNumber ({state}) {
+    state.socket.stream('admin-changes').send({action: 'incrementEventNumber'})
   },
-  decrementEventNumber () {
-    // .sendObj({action: 'decrementEventNumber'})
+  decrementEventNumber ({state}) {
+    state.socket.stream('admin-changes').send({action: 'decrementEventNumber'})
   }
 }
 
@@ -66,6 +67,9 @@ const mutations = {
     state.virtualClockTime = state.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
       .format('DDHHmm[D]MMMYY (HH:mm:ss)').toUpperCase()
     state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
+  },
+  [types.SET_SOCKET] (state, payload) {
+    state.socket = payload
   }
 }
 

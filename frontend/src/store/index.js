@@ -38,4 +38,6 @@ setInterval(function () {
   store.commit(types.UPDATE_CLOCKS)
 }, 1000)
 
+store.commit(types.SET_SOCKET, webSocketBridge)
+
 export default store
