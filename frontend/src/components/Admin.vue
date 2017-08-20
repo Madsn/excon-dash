@@ -1,6 +1,6 @@
 <template>
   <div>
-    <excon></excon>
+    <excon :admin="true"></excon>
     <v-layout row wrap v-if="showDateTimePickers">
       <v-flex sm12 md6 lg5 offset-lg2>
         <v-date-picker v-model="selectedDate" actions landscape></v-date-picker>

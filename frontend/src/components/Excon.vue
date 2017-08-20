@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap>
       <v-flex md12 lg4 v-if="!limitedView">
-        <excon-current-event-card>
+        <excon-current-event-card :admin="admin">
         </excon-current-event-card>
       </v-flex>
       <v-flex md12 lg8 v-if="!limitedView">
@@ -43,7 +43,8 @@
       ExconCardTitle
     },
     props: [
-      'limitedView'
+      'limitedView',
+      'admin'
     ],
     computed: {
       ...mapGetters({

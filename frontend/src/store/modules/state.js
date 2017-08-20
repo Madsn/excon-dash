@@ -24,18 +24,12 @@ const getters = {
 
 // actions
 const actions = {
-  /*
-  getDashboard ({commit}) {
-    if (localStorage.getItem(AUTH_TOKEN)) {
-      axios.get('custom/dashboard/').then((response) => {
-        console.log(response)
-        commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
-      })
-    } else {
-      console.error('Must be logged in first')
-    }
+  incrementEventNumber () {
+    // .sendObj({action: 'incrementEventNumber'})
   },
-  */
+  decrementEventNumber () {
+    // .sendObj({action: 'decrementEventNumber'})
+  }
 }
 
 // mutations
