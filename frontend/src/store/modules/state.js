@@ -25,10 +25,12 @@ const getters = {
 
 // actions
 const actions = {
-  incrementEventNumber ({state}) {
+  incrementEventNumber ({state, commit}) {
+    commit(types.INCREMENT_EVENT)
     state.socket.stream('admin-changes').send({action: 'incrementEventNumber'})
   },
-  decrementEventNumber ({state}) {
+  decrementEventNumber ({state, commit}) {
+    commit(types.DECREMENT_EVENT)
     state.socket.stream('admin-changes').send({action: 'decrementEventNumber'})
   }
 }
@@ -67,6 +69,12 @@ const mutations = {
     state.virtualClockTime = state.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
       .format('DDHHmm[D]MMMYY (HH:mm:ss)').toUpperCase()
     state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
+  },
+  [types.INCREMENT_EVENT] (state) {
+    state.eventNumber += 1
+  },
+  [types.DECREMENT_EVENT] (state) {
+    state.eventNumber -= 1
   },
   [types.SET_SOCKET] (state, payload) {
     state.socket = payload
