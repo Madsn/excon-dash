@@ -19,9 +19,15 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
         """
         Called with decoded JSON content.
         """
-        n = random.randint(0,500)
-        print("received: {0}".format(content))
-        new_obj = StateChange(event_number=n, clock_speed=5)
+        action = content["action"]
+        previous_state = StateChange.objects.all().order_by("-id").first()
+        if action == "decrementEventNumber":
+            new_event_number = previous_state.event_number - 1
+        elif action == "incrementEventNumber":
+            new_event_number = previous_state.event_number + 1
+        new_obj = StateChange(event_number=new_event_number,
+                              clock_speed=previous_state.clock_speed,
+                              message=previous_state.message)
         new_obj.save()
 
     def send(self, content, close=False):
