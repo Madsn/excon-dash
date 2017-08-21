@@ -33,6 +33,11 @@ const actions = {
   decrementEventNumber ({state, commit}) {
     commit(types.DECREMENT_EVENT)
     state.socket.stream(ADMIN_STREAM).send({action: 'decrementEventNumber'})
+  },
+  setMessage ({state, commit}, payload) {
+    commit(types.SET_MESSAGE, payload)
+    console.log(payload)
+    state.socket.stream(ADMIN_STREAM).send({action: 'setMessage', payload: payload})
   }
 }
 
@@ -49,9 +54,6 @@ const mutations = {
   },
   // default handler called for all methods
   [types.SOCKET_ONMESSAGE] (state, message) {
-    console.log('message')
-    console.log(message)
-    console.log(state)
     let payload = JSON.parse(message.data).payload.data
     if (payload === null) return
     state.message = payload.message ? payload.message : '-'
@@ -76,6 +78,9 @@ const mutations = {
   },
   [types.DECREMENT_EVENT] (state) {
     state.eventNumber -= 1
+  },
+  [types.SET_MESSAGE] (state, payload) {
+    state.message = payload
   },
   [types.SET_SOCKET] (state, payload) {
     state.socket = payload

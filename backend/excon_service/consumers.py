@@ -36,6 +36,8 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
             new_virtual_clock = parse_datetime(payload)
         elif action == "setClockSpeed" and payload is not None:
             new_clock_speed = payload
+        elif action == "setMessage" and payload is not None:
+            new_message = payload
         new_obj = StateChange(event_number=new_event_number,
                               clock_speed=new_clock_speed,
                               message=new_message,
