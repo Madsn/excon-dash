@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
 import moment from 'moment'
+const ADMIN_STREAM = 'admin-changes'
 
 // initial state
 const state = {
@@ -27,11 +28,11 @@ const getters = {
 const actions = {
   incrementEventNumber ({state, commit}) {
     commit(types.INCREMENT_EVENT)
-    state.socket.stream('admin-changes').send({action: 'incrementEventNumber'})
+    state.socket.stream(ADMIN_STREAM).send({action: 'incrementEventNumber'})
   },
   decrementEventNumber ({state, commit}) {
     commit(types.DECREMENT_EVENT)
-    state.socket.stream('admin-changes').send({action: 'decrementEventNumber'})
+    state.socket.stream(ADMIN_STREAM).send({action: 'decrementEventNumber'})
   }
 }
 
