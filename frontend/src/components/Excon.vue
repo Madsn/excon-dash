@@ -6,15 +6,15 @@
         </excon-current-event-card>
       </v-flex>
       <v-flex md12 lg8 v-if="!limitedView">
-        <excon-virtual-clock-card>
+        <excon-virtual-clock-card :admin="admin">
         </excon-virtual-clock-card>
       </v-flex>
       <v-flex xs12 md12 v-else="limitedView">
-        <excon-virtual-clock-card></excon-virtual-clock-card>
+        <excon-virtual-clock-card :admin="admin"></excon-virtual-clock-card>
       </v-flex>
     </v-layout>
     <v-layout row v-if="!limitedView">
-      <excon-message-card :message="message"></excon-message-card>
+      <excon-message-card :message="message" :admin="admin"></excon-message-card>
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 md6 offset-md6 lg4 offset-lg8>

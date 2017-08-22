@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
 import moment from 'moment'
+
 const ADMIN_STREAM = 'admin-changes'
 
 // initial state
@@ -38,6 +39,10 @@ const actions = {
     commit(types.SET_MESSAGE, payload)
     console.log(payload)
     state.socket.stream(ADMIN_STREAM).send({action: 'setMessage', payload: payload})
+  },
+  setVirtualClock ({state, commit}, payload) {
+    console.log(payload)
+    state.socket.stream(ADMIN_STREAM).send({action: 'setVirtualClock', payload: payload.format('YYYY-MM-DDTHH:mm')})
   }
 }
 

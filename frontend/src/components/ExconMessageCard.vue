@@ -1,10 +1,8 @@
 <template>
   <v-flex xs12 fill-height>
     <v-card class="elevation-10">
-      <excon-card-title title="Message from EXCON"></excon-card-title>
-      <v-btn fab dark medium primary @click="setMessageText">
-        <v-icon>edit</v-icon>
-      </v-btn>
+      <div class="display-3 grey--text text--darken-1 text-xs-center">Message from EXCON
+      </div>
       <h2 class="text-xs-center">{{message}}</h2>
     </v-card>
   </v-flex>
@@ -29,10 +27,7 @@
     methods: {
       ...mapActions({
         setMessage: 'setMessage'
-      }),
-      setMessageText: function () {
-        this.setMessage('testing')
-      }
+      })
     }
   }
 </script>
