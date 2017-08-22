@@ -90,13 +90,13 @@ const mutations = {
     state.eventNumber += 1
   },
   [types.DECREMENT_EVENT] (state) {
-    state.eventNumber -= 1
+    state.eventNumber = Math.max(0, state.eventNumber - 1)
   },
   [types.INCREMENT_CLOCK_SPEED] (state) {
     state.virtualClockRate += 1
   },
   [types.DECREMENT_CLOCK_SPEED] (state) {
-    state.virtualClockRate -= 1
+    state.virtualClockRate = Math.max(0, state.virtualClockRate - 1)
   },
   [types.SET_MESSAGE] (state, payload) {
     state.message = payload

@@ -26,21 +26,21 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
         new_message = previous_state.message
         new_clock_speed = previous_state.clock_speed
         if action == "decrementEventNumber":
-            new_event_number = previous_state.event_number - 1
+            new_event_number = max(0, previous_state.event_number - 1)
         elif action == "incrementEventNumber":
             new_event_number = previous_state.event_number + 1
         elif action == "decrementClockSpeed":
-            new_clock_speed = previous_state.clock_speed - 1
+            new_clock_speed = max(0, previous_state.clock_speed - 1)
         elif action == "incrementClockSpeed":
             new_clock_speed = previous_state.clock_speed + 1
         elif "payload" in content and content["payload"] is not None:
             payload = content["payload"]
             if action == "setEventNumber":
-                new_event_number = payload
+                new_event_number = max(0, payload)
             elif action == "setVirtualClock":
                 new_virtual_clock = parse_datetime(payload)
             elif action == "setClockSpeed":
-                new_clock_speed = payload
+                new_clock_speed = max(0, payload)
             elif action == "setMessage":
                 new_message = payload
         new_obj = StateChange(event_number=new_event_number,
