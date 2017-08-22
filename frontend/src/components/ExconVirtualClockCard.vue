@@ -1,11 +1,11 @@
 <template>
   <v-card class="elevation-10">
     <div class="display-3 grey--text text--darken-1 text-xs-center">Exercise time, speed:
-      <v-btn fab dark medium primary @click="decrementClockSpeed" class="clock-speed-adjuster">
+      <v-btn fab dark medium primary @click="decrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>remove</v-icon>
       </v-btn>
       {{virtualClockRate}}x
-      <v-btn fab dark medium primary @click="incrementClockSpeed" class="clock-speed-adjuster">
+      <v-btn fab dark medium primary @click="incrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>add</v-icon>
       </v-btn>
     </div>
@@ -67,7 +67,9 @@
     methods: {
       ...mapActions({
         setMessage: 'setMessage',
-        setVirtualClock: 'setVirtualClock'
+        setVirtualClock: 'setVirtualClock',
+        incrementClockSpeed: 'incrementClockSpeed',
+        decrementClockSpeed: 'decrementClockSpeed'
       }),
       submitVirtualClock: function () {
         var newDate = this.moment(`${this.selectedDate} ${this.selectedTime}`)
@@ -81,11 +83,12 @@
         this.selectedTime = now.format('HH:mm')
         this.selectedDate = now
       },
-      decrementClockSpeed: function () {
-        return null
+      decrementClockSpeedClicked: function () {
+        this.decrementClockSpeed()
       },
-      incrementClockSpeed: function () {
-        return null
+      incrementClockSpeedClicked: function () {
+        console.log('test')
+        this.incrementClockSpeed()
       }
     }
   }

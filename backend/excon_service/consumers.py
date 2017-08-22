@@ -29,6 +29,10 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
             new_event_number = previous_state.event_number - 1
         elif action == "incrementEventNumber":
             new_event_number = previous_state.event_number + 1
+        elif action == "decrementClockSpeed":
+            new_clock_speed = previous_state.clock_speed - 1
+        elif action == "incrementClockSpeed":
+            new_clock_speed = previous_state.clock_speed + 1
         elif "payload" in content and content["payload"] is not None:
             payload = content["payload"]
             if action == "setEventNumber":
