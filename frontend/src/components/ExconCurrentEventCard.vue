@@ -2,7 +2,7 @@
   <v-card class="elevation-10" v-if="admin">
     <excon-card-title title="Current event #"></excon-card-title>
     <v-card-text>
-      <v-layout class="text-xs-center">
+      <v-layout class="text-xs-center" style="max-height: 73px; margin-top: -24px">
         <v-flex xs-3>
           <v-btn fab dark medium primary @click="decrementEventNumber">
             <v-icon>remove</v-icon>

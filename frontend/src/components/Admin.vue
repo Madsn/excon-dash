@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="admin">
     <excon :admin="true"></excon>
   </div>
 </template>

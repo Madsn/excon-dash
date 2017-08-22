@@ -1,25 +1,36 @@
 <template>
   <v-card class="elevation-10">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">{{cardTitle}}
-      <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin">
-        <v-btn fab dark medium primary slot="activator" style="margin-top: -16px">
+    <div class="display-3 grey--text text--darken-1 text-xs-center">Exercise time, speed:
+      <v-btn fab dark medium primary @click="decrementClockSpeed" class="clock-speed-adjuster">
+        <v-icon>remove</v-icon>
+      </v-btn>
+      {{virtualClockRate}}x
+      <v-btn fab dark medium primary @click="incrementClockSpeed" class="clock-speed-adjuster">
+        <v-icon>add</v-icon>
+      </v-btn>
+    </div>
+    <h2 class="text-xs-center">{{virtualClockTime}}
+      <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin" style="margin-bottom: -9px">
+        <v-btn fab dark medium primary slot="activator" @click.native="resetPickerValues" style="margin-top: -20px">
           <v-icon>edit</v-icon>
         </v-btn>
         <v-card>
           <v-card-text>
-            <v-date-picker v-model="selectedDate" actions landscape style="margin-bottom: 4px"></v-date-picker>
-            <v-time-picker v-model="selectedTime" landscape format="24hr"></v-time-picker>
+            <v-date-picker v-model="selectedDate" actions landscape :autosave="false"
+                           style="margin-bottom: 4px"></v-date-picker>
+            <v-time-picker v-model="selectedTime" landscape :autosave="false" format="24hr"></v-time-picker>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="blue--text darken-1" flat @click.native="dialog = false">Cancel</v-btn>
+            <v-btn class="blue--text darken-1" flat @click="cancelVirtualClockChange" @click.native="dialog = false">
+              Cancel
+            </v-btn>
             <v-btn class="blue--text darken-1" flat @click="submitVirtualClock" @click.native="dialog = false">Save
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
-    <h2 class="text-xs-center">{{virtualClockTime}}</h2>
+    </h2>
   </v-card>
 </template>
 <script>
@@ -44,10 +55,7 @@
       ExconCardTitle
     },
     created: function () {
-      let now = this.moment()
-      this.selectedTime = now.format('HH:mm')
-      this.selectedDate = now
-      console.log(this.selectedDate)
+      this.resetPickerValues()
     },
     data () {
       return {
@@ -64,7 +72,27 @@
       submitVirtualClock: function () {
         var newDate = this.moment(`${this.selectedDate} ${this.selectedTime}`)
         this.setVirtualClock(newDate)
+      },
+      cancelVirtualClockChange: function () {
+        this.resetPickerValues()
+      },
+      resetPickerValues: function () {
+        let now = this.moment()
+        this.selectedTime = now.format('HH:mm')
+        this.selectedDate = now
+      },
+      decrementClockSpeed: function () {
+        return null
+      },
+      incrementClockSpeed: function () {
+        return null
       }
     }
   }
 </script>
+
+<style>
+  .clock-speed-adjuster {
+    margin-top: -6px;
+  }
+</style>
