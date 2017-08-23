@@ -44,11 +44,10 @@ const actions = {
     state.socket.stream(ADMIN_STREAM).send({action: 'decrementClockSpeed'})
   },
   setMessage ({state, commit}, payload) {
-    console.log(payload)
+    commit(types.SET_MESSAGE, payload)
     state.socket.stream(ADMIN_STREAM).send({action: 'setMessage', payload: payload})
   },
   setVirtualClock ({state, commit}, payload) {
-    console.log(payload)
     state.socket.stream(ADMIN_STREAM).send({action: 'setVirtualClock', payload: payload.format('YYYY-MM-DDTHH:mm')})
   }
 }
