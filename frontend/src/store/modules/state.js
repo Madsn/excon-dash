@@ -44,7 +44,6 @@ const actions = {
     state.socket.stream(ADMIN_STREAM).send({action: 'decrementClockSpeed'})
   },
   setMessage ({state, commit}, payload) {
-    commit(types.SET_MESSAGE, payload)
     console.log(payload)
     state.socket.stream(ADMIN_STREAM).send({action: 'setMessage', payload: payload})
   },
