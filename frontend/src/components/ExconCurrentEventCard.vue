@@ -1,6 +1,6 @@
 <template>
   <v-card class="elevation-10" v-if="admin">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">Current event #
+    <div class="display-3 grey--text text--darken-1 text-xs-center">Event #
       <span v-if="admin">
         <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button" v-if="!editingEvent">
           <v-icon>edit</v-icon>
@@ -19,11 +19,13 @@
                     class="event-input"
                     v-model="newEventNumber"
                     type="number"
+                    @keyup.enter="submitNewEvent"
+                    @keyup.esc="editingEvent = false"
       ></v-text-field>
     </v-card-text>
     <v-card-text v-else>
-      <v-layout class="text-xs-center" style="max-height: 73px; margin-top: -24px">
-        <v-flex xs-3>
+      <v-layout class="event-admin-view">
+        <v-flex xs-3 class="text-xs-right">
           <v-btn fab dark medium primary @click="decrementEventNumber">
             <v-icon>remove</v-icon>
           </v-btn>
@@ -31,7 +33,7 @@
         <v-flex xs-6>
           <h2 class="text-xs-center">{{eventNumber}}</h2>
         </v-flex>
-        <v-flex xs-3>
+        <v-flex xs-3 class="text-xs-left">
           <v-btn fab dark medium primary @click="incrementEventNumber">
             <v-icon>add</v-icon>
           </v-btn>
@@ -40,7 +42,7 @@
       </v-layout>
     </v-card-text>
   </v-card>
-  <v-card class="elevation-10" v-else="admin">
+  <v-card class="elevation-10" v-else>
     <excon-card-title title="Current event #"></excon-card-title>
     <h2 class="text-xs-center">{{eventNumber}}</h2>
   </v-card>
@@ -95,5 +97,9 @@
   .event-input {
     padding: 0;
     margin: 0 0 -18px 0;
+  }
+  .event-admin-view {
+    max-height: 73px;
+    margin-top: -24px;
   }
 </style>

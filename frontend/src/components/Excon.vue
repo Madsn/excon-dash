@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-layout row wrap>
-      <v-flex md12 lg5 v-if="!limitedView">
+      <v-flex md12 lg4 v-if="!limitedView">
         <excon-current-event-card :admin="admin">
         </excon-current-event-card>
       </v-flex>
-      <v-flex md12 lg7 v-if="!limitedView">
+      <v-flex md12 lg8 v-if="!limitedView">
         <excon-virtual-clock-card :admin="admin">
         </excon-virtual-clock-card>
       </v-flex>
