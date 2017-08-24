@@ -16,7 +16,7 @@
     </div>
     <v-card-text v-if="editingEvent">
       <v-text-field name="new-event-input"
-                    class="hello"
+                    class="event-input"
                     v-model="newEventNumber"
                     type="number"
       ></v-text-field>
@@ -90,9 +90,10 @@
     font-size: 56px;
     padding-bottom: 32px;
     padding-top: 24px;
+    text-align: center;
   }
-  .hello {
+  .event-input {
     padding: 0;
-    margin: 0px 0 -18px 0;
+    margin: 0 0 -18px 0;
   }
 </style>

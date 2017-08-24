@@ -73,6 +73,7 @@
 <style>
   textarea[name='new-message-input'] {
     font-size: 56px;
+    text-align: center;
   }
 
   .edit-message-button {
