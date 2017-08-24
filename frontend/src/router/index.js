@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Excon from '@/components/Excon'
-import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
@@ -15,14 +14,15 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'limited',
+      name: 'Limited',
       component: Excon,
       props: {limitedView: true}
     },
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin
+      component: Excon,
+      props: {admin: true}
     }
   ]
 })
