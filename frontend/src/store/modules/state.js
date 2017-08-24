@@ -35,6 +35,10 @@ const actions = {
     commit(types.DECREMENT_EVENT)
     state.socket.stream(ADMIN_STREAM).send({action: 'decrementEventNumber'})
   },
+  setEventNumber ({state, commit}, payload) {
+    commit(types.SET_EVENT, payload)
+    state.socket.stream(ADMIN_STREAM).send({action: 'setEventNumber', payload: payload})
+  },
   incrementClockSpeed ({state, commit}) {
     commit(types.INCREMENT_CLOCK_SPEED)
     state.socket.stream(ADMIN_STREAM).send({action: 'incrementClockSpeed'})
@@ -98,6 +102,9 @@ const mutations = {
   },
   [types.SET_MESSAGE] (state, payload) {
     state.message = payload
+  },
+  [types.SET_EVENT] (state, payload) {
+    state.eventNumber = payload
   },
   [types.SET_SOCKET] (state, payload) {
     state.socket = payload

@@ -36,7 +36,7 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
         elif "payload" in content and content["payload"] is not None:
             payload = content["payload"]
             if action == "setEventNumber":
-                new_event_number = max(0, payload)
+                new_event_number = max(0, int(payload))
             elif action == "setVirtualClock":
                 new_virtual_clock = parse_datetime(payload)
             elif action == "setClockSpeed":

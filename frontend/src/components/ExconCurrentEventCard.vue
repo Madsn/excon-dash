@@ -1,12 +1,24 @@
 <template>
   <v-card class="elevation-10" v-if="admin">
     <div class="display-3 grey--text text--darken-1 text-xs-center">Current event #
-      <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button">
-        <v-icon>edit</v-icon>
-      </v-btn>
+      <span v-if="admin">
+        <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button" v-if="!editingEvent">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        </v-btn>
+        <v-btn fab error dark medium @click.native="editingEvent = false" class="edit-message-button" v-if="editingEvent">
+          <v-icon>cancel</v-icon>
+        </v-btn>
+        <v-btn fab success dark medium @click.native="submitNewEvent" class="edit-message-button" v-if="editingEvent">
+          <v-icon>save</v-icon>
+        </v-btn>
+      </span>
     </div>
     <v-card-text v-if="editingEvent">
       <v-text-field name="new-event-input"
+                    class="hello"
+                    v-model="newEventNumber"
+                    type="number"
       ></v-text-field>
     </v-card-text>
     <v-card-text v-else>
@@ -52,16 +64,23 @@
     },
     data: function () {
       return {
-        editingEvent: false
+        editingEvent: false,
+        newEventNumber: null
       }
     },
     methods: {
       ...mapActions({
         decrementEventNumber: 'decrementEventNumber',
-        incrementEventNumber: 'incrementEventNumber'
+        incrementEventNumber: 'incrementEventNumber',
+        setEventNumber: 'setEventNumber'
       }),
       beginEditingEvent: function () {
+        this.newEventNumber = this.eventNumber
         this.editingEvent = true
+      },
+      submitNewEvent: function () {
+        this.setEventNumber(this.newEventNumber)
+        this.editingEvent = false
       }
     }
   }
@@ -71,5 +90,9 @@
     font-size: 56px;
     padding-bottom: 32px;
     padding-top: 24px;
+  }
+  .hello {
+    padding: 0;
+    margin: 0px 0 -18px 0;
   }
 </style>
