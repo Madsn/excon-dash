@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Excon from '@/components/Excon'
 import Login from '@/components/Login'
+import Logout from '@/components/Logout'
 import auth from '../store/modules/auth'
 
 Vue.use(Router)
@@ -10,6 +11,11 @@ const login = {
   path: '/login',
   name: 'Login',
   component: Login
+}
+const logout = {
+  path: '/logout',
+  name: 'Logout',
+  component: Logout
 }
 
 const router = new Router({
@@ -40,7 +46,8 @@ const router = new Router({
         }
       }
     },
-    login
+    login,
+    logout
   ]
 })
 
