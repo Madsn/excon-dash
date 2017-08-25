@@ -1,10 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Excon from '@/components/Excon'
+import Login from '@/components/Login'
+import auth from '../store/modules/auth'
 
 Vue.use(Router)
 
-export default new Router({
+const login = {
+  path: '/login',
+  name: 'Login',
+  component: Login
+}
+
+const router = new Router({
   routes: [
     {
       path: '/excon',
@@ -22,7 +30,18 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Excon,
-      props: {admin: true}
-    }
+      props: {admin: true},
+      beforeEnter: (to, from, next) => {
+        const authenticated = auth.state.isAuthenticated
+        if (authenticated) {
+          next()
+        } else {
+          next(login)
+        }
+      }
+    },
+    login
   ]
 })
+
+export default router

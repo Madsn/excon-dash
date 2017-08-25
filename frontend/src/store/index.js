@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import vcta from './modules/state'
+import auth from './modules/auth'
 import createLogger from './logger'
 import * as types from './mutation-types'
 
@@ -10,7 +11,8 @@ const debug = process.env.NODE_ENV !== 'production'
 
 const store = new Vuex.Store({
   modules: {
-    vcta
+    vcta,
+    auth
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
