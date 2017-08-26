@@ -26,7 +26,8 @@
                     rows="3"
                     multi-line
                     counter
-                    @keyup.enter="submitNewMessage"
+                    autofocus
+                    @keydown.enter="submitNewMessage"
                     @keyup.esc="editingMessage = false"
       ></v-text-field>
     </v-card>

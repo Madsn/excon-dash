@@ -19,6 +19,7 @@
                     class="event-input"
                     v-model="newEventNumber"
                     type="number"
+                    autofocus
                     @keyup.enter="submitNewEvent"
                     @keyup.esc="editingEvent = false"
       ></v-text-field>
