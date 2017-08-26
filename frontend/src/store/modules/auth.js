@@ -9,14 +9,15 @@ function setAxiosToken (token) {
   if (token) {
     axios.defaults.headers.common['Authorization'] = 'Token ' + token
   } else {
-    axios.defaults.headers.common['Authorization'] = null
+    token = sessionStorage.getItem(AUTH_TOKEN)
+    axios.defaults.headers.common['Authorization'] = token
   }
 }
 setAxiosToken()
 
 const state = {
-  isAuthenticated: false,
-  token: null
+  isAuthenticated: sessionStorage.getItem(AUTH_TOKEN) !== null,
+  token: sessionStorage.getItem(AUTH_TOKEN)
 }
 
 const getters = {
@@ -44,9 +45,9 @@ const mutations = {
     if (payload.authenticated) {
       setAxiosToken(payload.token)
       state.token = payload.token
-      localStorage.setItem(AUTH_TOKEN, payload.token)
+      sessionStorage.setItem(AUTH_TOKEN, payload.token)
     } else {
-      localStorage.removeItem(AUTH_TOKEN)
+      sessionStorage.removeItem(AUTH_TOKEN)
       state.token = null
     }
   }
