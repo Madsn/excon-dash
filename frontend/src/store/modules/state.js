@@ -100,16 +100,16 @@ const mutations = {
     state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
   },
   [types.INCREMENT_EVENT] (state) {
-    state.eventNumber += 1
+    state.eventNumber = isNaN(state.eventNumber) ? 1 : state.eventNumber + 1
   },
   [types.DECREMENT_EVENT] (state) {
-    state.eventNumber = Math.max(0, state.eventNumber - 1)
+    state.eventNumber = isNaN(state.eventNumber) ? 0 : Math.max(0, state.eventNumber - 1)
   },
   [types.INCREMENT_CLOCK_SPEED] (state) {
-    state.virtualClockRate += 1
+    state.virtualClockRate = isNaN(state.virtualClockRate) ? 1 : state.virtualClockRate + 1
   },
   [types.DECREMENT_CLOCK_SPEED] (state) {
-    state.virtualClockRate = Math.max(0, state.virtualClockRate - 1)
+    state.virtualClockRate = isNaN(state.virtualClockRate) ? 0 : Math.max(0, state.virtualClockRate - 1)
   },
   [types.SET_MESSAGE] (state, payload) {
     state.message = payload

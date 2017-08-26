@@ -1,4 +1,5 @@
 from channels.generic.websockets import WebsocketDemultiplexer, JsonWebsocketConsumer, WebsocketConsumer
+from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from rest_framework.authtoken.models import Token
 
@@ -32,6 +33,12 @@ class AdminChangesConsumer(JsonWebsocketConsumer):
             return
         action = content["action"]
         previous_state = StateChange.objects.all().order_by("-id").first()
+        if previous_state is None:
+            previous_state = StateChange(event_number=0,
+                                         clock_speed=1,
+                                         message="",
+                                         virtual_clock=timezone.now().replace(microsecond=0))
+            previous_state.save()
         new_event_number = previous_state.event_number
         new_virtual_clock = None
         new_message = previous_state.message
