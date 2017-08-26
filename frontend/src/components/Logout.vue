@@ -16,6 +16,7 @@
     },
     mounted: function () {
       this.logout()
+      this.$router.push('/')
     },
     methods: {
       ...mapActions([

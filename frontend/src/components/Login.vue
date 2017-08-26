@@ -1,10 +1,28 @@
 <template>
   <div>
-    <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
-           aria-describedby="password-addon">
-    <div class="form-group">
-      <button class="btn btn-md btn-primary" @click="login">Sign in</button>
-    </div>
+    <v-layout row wrap>
+      <v-flex xs12 sm6 offset-sm3 lg4 offset-lg4>
+        <v-card class="logincard">
+          <v-card-title>
+            <div class="headline">
+              Admin login
+            </div>
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              name="password-field"
+              label="Password"
+              id="inputPassword"
+              v-model="password"
+              type="password"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn flat primary @click="login">Sign in</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -44,3 +62,12 @@
     }
   }
 </script>
+<style>
+  .logincard .card__text {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+  .logincard .input-group {
+    padding-bottom: 0;
+  }
+</style>
