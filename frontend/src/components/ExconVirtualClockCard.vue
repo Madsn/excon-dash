@@ -10,10 +10,10 @@
       </v-btn>
     </div>
     <h2 class="text-xs-center">{{virtualClockTime}}
+      <v-btn fab dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px">
+        <v-icon>edit</v-icon>
+      </v-btn>
       <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin" style="margin-bottom: -9px">
-        <v-btn fab dark medium primary slot="activator" @click.native="resetPickerValues" style="margin-top: -20px">
-          <v-icon>edit</v-icon>
-        </v-btn>
         <v-card>
           <v-card-text>
             <v-date-picker v-model="selectedDate" actions landscape :autosave="false"
@@ -22,10 +22,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="blue--text darken-1" flat @click="cancelVirtualClockChange" @click.native="dialog = false">
+            <v-btn class="blue--text darken-1" flat @click="closeTimePicker">
               Cancel
             </v-btn>
-            <v-btn class="blue--text darken-1" flat @click="submitVirtualClock" @click.native="dialog = false">Save
+            <v-btn class="blue--text darken-1" flat @click="submitVirtualClock" @click.native="closeTimePicker">Save
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -54,15 +54,21 @@
     components: {
       ExconCardTitle
     },
-    created: function () {
-      this.resetPickerValues()
-    },
     data () {
+      const self = this
       return {
         dialog: false,
         selectedDate: null,
-        selectedTime: null
+        selectedTime: null,
+        escapeHandler: function (event) {
+          if (event.keyCode === 27) {
+            self.closeTimePicker()
+          }
+        }
       }
+    },
+    beforeDestroy () {
+      window.removeEventListener('keyup', this.escapeHandler)
     },
     methods: {
       ...mapActions({
@@ -72,16 +78,19 @@
         decrementClockSpeed: 'decrementClockSpeed'
       }),
       submitVirtualClock: function () {
-        var newDate = this.moment(`${this.selectedDate} ${this.selectedTime}`)
+        const newDate = this.moment(`${this.selectedDate} ${this.selectedTime}`)
         this.setVirtualClock(newDate)
       },
-      cancelVirtualClockChange: function () {
-        this.resetPickerValues()
-      },
-      resetPickerValues: function () {
+      openTimePicker: function () {
+        this.dialog = true
         let now = this.moment()
         this.selectedTime = now.format('HH:mm')
         this.selectedDate = now
+        window.addEventListener('keyup', this.escapeHandler)
+      },
+      closeTimePicker: function () {
+        this.dialog = false
+        window.removeEventListener('keyup', this.escapeHandler)
       },
       decrementClockSpeedClicked: function () {
         this.decrementClockSpeed()
