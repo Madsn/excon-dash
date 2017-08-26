@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-toolbar v-if="isAuthenticated">
+      <v-toolbar-title>Excon dashboard admin</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat to="admin">Admin</v-btn>
+        <v-btn flat to="excon">Full</v-btn>
+        <v-btn flat to="limited">Limited</v-btn>
+        <v-btn flat to="logout">Log out</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
     <v-layout row wrap>
       <v-flex md12 lg4 v-if="!limitedView">
         <excon-current-event-card :admin="admin">
@@ -17,7 +27,7 @@
       <excon-message-card :message="message" :admin="admin"></excon-message-card>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs12 md6 offset-md6 lg4 offset-lg8>
+      <v-flex xs10 md6 offset-md6 lg4 offset-lg8>
         <excon-real-clock-card>
         </excon-real-clock-card>
       </v-flex>
@@ -26,7 +36,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   import ExconVirtualClockCard from './ExconVirtualClockCard'
   import ExconRealClockCard from './ExconRealClockCard'
   import ExconCurrentEventCard from './ExconCurrentEventCard'
@@ -48,8 +58,20 @@
     ],
     computed: {
       ...mapGetters({
-        message: 'message'
+        message: 'message',
+        isAuthenticated: 'isAuthenticated'
       })
+    },
+    methods: {
+      ...mapActions({
+        logout: 'logout'
+      }),
+      navigateToLimitedView: function () {
+        this.$router.push('/')
+      },
+      navigateToExconView: function () {
+        this.$router.push('/excon')
+      }
     }
   }
 </script>

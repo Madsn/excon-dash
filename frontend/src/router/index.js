@@ -28,6 +28,10 @@ const router = new Router({
     },
     {
       path: '/',
+      redirect: '/limited'
+    },
+    {
+      path: '/limited',
       name: 'Limited',
       component: Excon,
       props: {limitedView: true}

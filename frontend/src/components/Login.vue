@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3 lg4 offset-lg4>
-        <v-card class="logincard">
+        <v-card class="logincard elevation-10">
           <v-card-title>
             <div class="headline">
               Admin login
