@@ -15,7 +15,8 @@ function setAxiosToken (token) {
 setAxiosToken()
 
 const state = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  token: null
 }
 
 const getters = {
@@ -42,9 +43,11 @@ const mutations = {
     state.isAuthenticated = payload.authenticated
     if (payload.authenticated) {
       setAxiosToken(payload.token)
+      state.token = payload.token
       localStorage.setItem(AUTH_TOKEN, payload.token)
     } else {
       localStorage.removeItem(AUTH_TOKEN)
+      state.token = null
     }
   }
 }

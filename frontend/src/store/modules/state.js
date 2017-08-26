@@ -25,34 +25,39 @@ const getters = {
   realClockTime: state => state.realClockTime
 }
 
+function streamAdminChange (args, obj) {
+  console.log(args.rootState.auth)
+  args.state.socket.stream(ADMIN_STREAM).send({token: args.rootState.auth.token, ...obj})
+}
+
 // actions
 const actions = {
-  incrementEventNumber ({state, commit}) {
-    commit(types.INCREMENT_EVENT)
-    state.socket.stream(ADMIN_STREAM).send({action: 'incrementEventNumber'})
+  incrementEventNumber (args) {
+    args.commit(types.INCREMENT_EVENT)
+    streamAdminChange(args, {action: 'incrementEventNumber'})
   },
-  decrementEventNumber ({state, commit}) {
-    commit(types.DECREMENT_EVENT)
-    state.socket.stream(ADMIN_STREAM).send({action: 'decrementEventNumber'})
+  decrementEventNumber (args) {
+    args.commit(types.DECREMENT_EVENT)
+    streamAdminChange(args, {action: 'decrementEventNumber'})
   },
-  setEventNumber ({state, commit}, payload) {
-    commit(types.SET_EVENT, payload)
-    state.socket.stream(ADMIN_STREAM).send({action: 'setEventNumber', payload: payload})
+  setEventNumber (args, payload) {
+    args.commit(types.SET_EVENT, payload)
+    streamAdminChange(args, {action: 'setEventNumber', payload: payload})
   },
-  incrementClockSpeed ({state, commit}) {
-    commit(types.INCREMENT_CLOCK_SPEED)
-    state.socket.stream(ADMIN_STREAM).send({action: 'incrementClockSpeed'})
+  incrementClockSpeed (args) {
+    args.commit(types.INCREMENT_CLOCK_SPEED)
+    streamAdminChange(args, {action: 'incrementClockSpeed'})
   },
-  decrementClockSpeed ({state, commit}) {
-    commit(types.DECREMENT_CLOCK_SPEED)
-    state.socket.stream(ADMIN_STREAM).send({action: 'decrementClockSpeed'})
+  decrementClockSpeed (args) {
+    args.commit(types.DECREMENT_CLOCK_SPEED)
+    streamAdminChange(args, {action: 'decrementClockSpeed'})
   },
-  setMessage ({state, commit}, payload) {
-    commit(types.SET_MESSAGE, payload)
-    state.socket.stream(ADMIN_STREAM).send({action: 'setMessage', payload: payload})
+  setMessage (args, payload) {
+    args.commit(types.SET_MESSAGE, payload)
+    streamAdminChange(args, {action: 'setMessage', payload: payload})
   },
-  setVirtualClock ({state, commit}, payload) {
-    state.socket.stream(ADMIN_STREAM).send({action: 'setVirtualClock', payload: payload.format('YYYY-MM-DDTHH:mm')})
+  setVirtualClock (args, payload) {
+    streamAdminChange(args, {action: 'setVirtualClock', payload: payload.format('YYYY-MM-DDTHH:mm')})
   }
 }
 
@@ -69,13 +74,19 @@ const mutations = {
   },
   // default handler called for all methods
   [types.SOCKET_ONMESSAGE] (state, message) {
-    let payload = JSON.parse(message.data).payload.data
-    if (payload === null) return
-    state.message = payload.message ? payload.message : '-'
-    state.eventNumber = payload.event_number ? payload.event_number : '-'
-    state.virtualClockSeed = payload.virtual_clock ? moment(payload.virtual_clock, moment.ISO_8601) : null
-    state.virtualClockRate = payload.clock_speed ? payload.clock_speed : 0
-    state.stateChangeTimestamp = payload.created ? moment(payload.created, moment.ISO_8601) : null
+    let payload = JSON.parse(message.data).payload
+    let error = payload.error
+    if (error) {
+      console.error(error)
+      return
+    }
+    let data = payload.data
+    if (data === null) return
+    state.message = data.message ? data.message : '-'
+    state.eventNumber = data.event_number ? data.event_number : '-'
+    state.virtualClockSeed = data.virtual_clock ? moment(data.virtual_clock, moment.ISO_8601) : null
+    state.virtualClockRate = data.clock_speed ? data.clock_speed : 0
+    state.stateChangeTimestamp = data.created ? moment(data.created, moment.ISO_8601) : null
   },
   [types.UPDATE_CLOCKS] (state, message) {
     if (state.virtualClockSeed === null || state.stateChangeTimestamp === null) {

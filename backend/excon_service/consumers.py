@@ -1,5 +1,6 @@
 from channels.generic.websockets import WebsocketDemultiplexer, JsonWebsocketConsumer, WebsocketConsumer
 from django.utils.dateparse import parse_datetime
+from rest_framework.authtoken.models import Token
 
 from .serializers import StateChangeSerializer
 from .models import StateChange
@@ -8,6 +9,7 @@ import random
 
 
 class GetStateConsumer(JsonWebsocketConsumer):
+
     def connect(self, message, multiplexer, **kwargs):
         state = StateChange.objects.all().order_by("-id").first()
         serializer = StateChangeSerializer(state)
@@ -15,10 +17,19 @@ class GetStateConsumer(JsonWebsocketConsumer):
 
 
 class AdminChangesConsumer(JsonWebsocketConsumer):
+
     def receive(self, content, **kwargs):
         """
         Called with decoded JSON content.
         """
+        if "token" not in content:
+            kwargs["multiplexer"].send({"error": "Change requests must include valid token"})
+            return
+        token = content["token"]
+        token_exists = Token.objects.filter(pk=token).exists()
+        if not token_exists:
+            kwargs["multiplexer"].send({"error": "Invalid token: {0}".format(token)})
+            return
         action = content["action"]
         previous_state = StateChange.objects.all().order_by("-id").first()
         new_event_number = previous_state.event_number
