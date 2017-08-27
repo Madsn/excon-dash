@@ -1,10 +1,10 @@
 <template>
   <v-card class="elevation-10">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">Ex. time, speed:
+    <div class="display-3 grey--text text--darken-1 text-xs-center">{{$t("message.virtualClockLabel")}}
       <v-btn fab dark medium primary @click="decrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>remove</v-icon>
       </v-btn>
-      {{virtualClockRate}}x
+      {{virtualClockRate}}
       <v-btn fab dark medium primary @click="incrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>add</v-icon>
       </v-btn>

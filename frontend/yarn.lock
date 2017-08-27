@@ -6053,19 +6053,13 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-authenticate@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/vue-authenticate/-/vue-authenticate-1.2.7.tgz#48c634bd1ae015a25b8acab267b408a399cbfc55"
-  dependencies:
-    vue "^2.2.5"
-
-vue-axios@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.0.2.tgz#0fe5a69f1edb09a1cd6c4a7f88c74d2fb7fe1778"
-
 vue-hot-reload-api@^2.0.11:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
+
+vue-i18n@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-7.1.2.tgz#6f5b4b9101e7b92aa05089eb1c0d266aa344f8fc"
 
 vue-loader@^11.3.4:
   version "11.3.4"
@@ -6083,10 +6077,6 @@ vue-loader@^11.3.4:
     vue-hot-reload-api "^2.0.11"
     vue-style-loader "^2.0.0"
     vue-template-es2015-compiler "^1.2.2"
-
-vue-native-websocket@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/vue-native-websocket/-/vue-native-websocket-2.0.3.tgz#b54830c6490cc2928729240b0b5bdca4c78c7b46"
 
 vue-router@^2.3.1:
   version "2.7.0"
@@ -6116,7 +6106,7 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.3.tgz#22787de4e37ebd9339b74223bc467d1adee30545"
 
-vue@^2.2.5, vue@^2.4.2:
+vue@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.2.tgz#a9855261f191c978cc0dc1150531b8d08149b58c"
 
