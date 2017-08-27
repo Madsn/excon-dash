@@ -1,12 +1,14 @@
 <template>
   <v-card class="elevation-10" v-if="admin">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">Event #
+    <div class="display-3 grey--text text--darken-1 text-xs-center">{{currentEventLabel}}
       <span v-if="admin">
-        <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button" v-if="!editingEvent">
+        <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button"
+               v-if="!editingEvent">
           <v-icon>edit</v-icon>
         </v-btn>
         </v-btn>
-        <v-btn fab error dark medium @click.native="editingEvent = false" class="edit-message-button" v-if="editingEvent">
+        <v-btn fab error dark medium @click.native="editingEvent = false" class="edit-message-button"
+               v-if="editingEvent">
           <v-icon>cancel</v-icon>
         </v-btn>
         <v-btn fab success dark medium @click.native="submitNewEvent" class="edit-message-button" v-if="editingEvent">
@@ -44,7 +46,7 @@
     </v-card-text>
   </v-card>
   <v-card class="elevation-10" v-else>
-    <excon-card-title title="Current event #"></excon-card-title>
+    <excon-card-title :title="currentEventLabel"></excon-card-title>
     <h2 class="text-xs-center">{{eventNumber}}</h2>
   </v-card>
 </template>
@@ -63,7 +65,10 @@
     computed: {
       ...mapGetters({
         eventNumber: 'eventNumber'
-      })
+      }),
+      currentEventLabel: function () {
+        return this.$i18n.t('message.currentEventLabel')
+      }
     },
     data: function () {
       return {
@@ -95,10 +100,12 @@
     padding-top: 24px;
     text-align: center;
   }
+
   .event-input {
     padding: 0;
     margin: 0 0 -18px 0;
   }
+
   .event-admin-view {
     max-height: 73px;
     margin-top: -24px;
