@@ -10,7 +10,7 @@
       </v-btn>
     </div>
     <h2 class="text-xs-center">{{virtualClockTime}}
-      <v-btn fab dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px">
+      <v-btn fab dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px" v-if="admin">
         <v-icon>edit</v-icon>
       </v-btn>
       <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin" style="margin-bottom: -9px">
