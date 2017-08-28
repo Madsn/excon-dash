@@ -70,8 +70,8 @@
 
 <style>
   .flex {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 16px;
+    padding-bottom: 0;
   }
 
   .card {

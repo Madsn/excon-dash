@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar class="elevation-10">
     <img src="/static/systematic_logo.png" height="34px" @click="$router.push('limited')"/>
     <v-toolbar-title>Exercise Dash</v-toolbar-title>
     <v-spacer></v-spacer>
