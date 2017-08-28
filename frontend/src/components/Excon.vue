@@ -1,15 +1,6 @@
 <template>
   <div>
-    <v-toolbar v-if="isAuthenticated">
-      <v-toolbar-title>Excon dashboard admin</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn flat to="admin">Admin</v-btn>
-        <v-btn flat to="excon">Full</v-btn>
-        <v-btn flat to="limited">Limited</v-btn>
-        <v-btn flat to="logout">Log out</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+    <excon-toolbar></excon-toolbar>
     <v-layout row wrap>
       <v-flex md12 lg4 v-if="!limitedView">
         <excon-current-event-card :admin="admin">
@@ -42,6 +33,7 @@
   import ExconCurrentEventCard from './ExconCurrentEventCard'
   import ExconMessageCard from './ExconMessageCard'
   import ExconCardTitle from './ExconCardTitle.vue'
+  import ExconToolbar from './ExconToolbar.vue'
 
   export default {
     name: 'excon',
@@ -50,7 +42,8 @@
       ExconRealClockCard,
       ExconCurrentEventCard,
       ExconMessageCard,
-      ExconCardTitle
+      ExconCardTitle,
+      ExconToolbar
     },
     props: [
       'limitedView',
@@ -58,8 +51,7 @@
     ],
     computed: {
       ...mapGetters({
-        message: 'message',
-        isAuthenticated: 'isAuthenticated'
+        message: 'message'
       })
     },
     methods: {

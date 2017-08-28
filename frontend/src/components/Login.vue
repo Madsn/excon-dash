@@ -1,5 +1,6 @@
 <template>
   <div>
+    <excon-toolbar></excon-toolbar>
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3 lg4 offset-lg4>
         <v-card class="logincard elevation-10">
@@ -28,9 +29,13 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import ExconToolbar from './ExconToolbar.vue'
 
   export default {
     name: 'login',
+    components: {
+      ExconToolbar
+    },
     data () {
       return {
         username: 'admin',
