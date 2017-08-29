@@ -46,7 +46,7 @@
     </v-card-text>
   </v-card>
   <v-card class="elevation-10" v-else>
-    <excon-card-title :title="currentEventLabel"></excon-card-title>
+    <excon-card-title :title="currentEventLabelArabic" :subtitle="currentEventLabelEnglish"></excon-card-title>
     <h2 class="text-xs-center">{{eventNumber}}</h2>
   </v-card>
 </template>
@@ -66,8 +66,11 @@
       ...mapGetters({
         eventNumber: 'eventNumber'
       }),
-      currentEventLabel: function () {
-        return this.$i18n.t('message.currentEventLabel')
+      currentEventLabelEnglish: function () {
+        return this.$i18n.t('message.currentEventLabel', 'en')
+      },
+      currentEventLabelArabic: function () {
+        return this.$i18n.t('message.currentEventLabel', 'ar')
       }
     },
     data: function () {

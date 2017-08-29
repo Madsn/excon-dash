@@ -76,7 +76,7 @@
 
   .card {
     padding: 16px 32px 2px 32px;
-    min-height: 184px;
+    min-height: 188px;
     margin: 0 4px;
   }
 </style>
