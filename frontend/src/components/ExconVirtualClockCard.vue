@@ -1,13 +1,17 @@
 <template>
   <v-card class="elevation-10">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">{{$t("message.virtualClockLabel")}}
+    <div class="display-3 grey--text text--darken-1 text-xs-center">
       <v-btn fab dark medium primary @click="decrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>remove</v-icon>
       </v-btn>
-      {{virtualClockRate}}
+      {{$t("message.virtualClockLabel", "ar")}}
       <v-btn fab dark medium primary @click="incrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
         <v-icon>add</v-icon>
       </v-btn>
+      {{virtualClockRate}}
+    </div>
+    <div class="display-5 grey--text text--darken-1 text-xs-center card-subtitle">
+      {{$t("message.virtualClockLabel", "en")}} {{virtualClockRate}}
     </div>
     <h2 class="text-xs-center">{{virtualClockTime}}
       <v-btn fab dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px" v-if="admin">

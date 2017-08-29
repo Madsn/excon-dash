@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 fill-height>
     <v-card class="elevation-10">
-      <div class="display-3 grey--text text--darken-1 text-xs-center">{{$t("message.exconMessageLabel")}}
+      <div class="display-3 grey--text text--darken-1 text-xs-center">{{$t("message.exconMessageLabel", "ar")}}
         <span v-if="admin">
           <v-btn fab primary dark medium @click.native="beginEditingMessage" class="edit-message-button"
                  v-if="!editingMessage">
@@ -16,6 +16,9 @@
             <v-icon>save</v-icon>
           </v-btn>
         </span>
+      </div>
+      <div class="display-5 grey--text text--darken-1 text-xs-center card-subtitle">
+        {{$t("message.exconMessageLabel", "en")}}
       </div>
       <h2 class="text-xs-center" v-if="!editingMessage">{{message}}</h2>
       <v-text-field v-if="admin && editingMessage"

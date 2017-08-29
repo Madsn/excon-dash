@@ -1,6 +1,6 @@
 <template>
   <v-card class="elevation-10">
-    <excon-card-title :title="label"></excon-card-title>
+    <excon-card-title :title="labelArabic" :subtitle="labelEnglish"></excon-card-title>
     <h2 class="text-xs-center">{{realClockTime}}</h2>
   </v-card>
 </template>
@@ -14,8 +14,11 @@
       ...mapGetters({
         realClockTime: 'realClockTime'
       }),
-      label: function () {
-        return this.$i18n.t('message.realTimeLabel')
+      labelArabic: function () {
+        return this.$i18n.t('message.realTimeLabel', 'ar')
+      },
+      labelEnglish: function () {
+        return this.$i18n.t('message.realTimeLabel', 'en')
       }
     },
     components: {

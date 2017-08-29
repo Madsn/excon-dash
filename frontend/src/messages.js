@@ -2,7 +2,7 @@ const messages = {
   en: {
     message: {
       hello: 'hello world',
-      virtualClockLabel: 'Ex. time, speed:',
+      virtualClockLabel: 'Exercise time, speed:',
       realTimeLabel: 'Real time',
       exconMessageLabel: 'Message from EXCON',
       currentEventLabel: 'Event #'

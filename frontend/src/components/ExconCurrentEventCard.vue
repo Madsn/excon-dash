@@ -1,6 +1,6 @@
 <template>
   <v-card class="elevation-10" v-if="admin">
-    <div class="display-3 grey--text text--darken-1 text-xs-center">{{currentEventLabel}}
+    <div class="display-3 grey--text text--darken-1 text-xs-center">{{currentEventLabelArabic}}
       <span v-if="admin">
         <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button"
                v-if="!editingEvent">
@@ -15,6 +15,9 @@
           <v-icon>save</v-icon>
         </v-btn>
       </span>
+    </div>
+    <div class="display-5 grey--text text--darken-1 text-xs-center card-subtitle">
+      {{currentEventLabelEnglish}}
     </div>
     <v-card-text v-if="editingEvent">
       <v-text-field name="new-event-input"

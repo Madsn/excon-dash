@@ -79,4 +79,8 @@
     min-height: 188px;
     margin: 0 4px;
   }
+
+  .card-subtitle {
+    margin-top: -12px;
+  }
 </style>
