@@ -16,6 +16,8 @@
               id="inputPassword"
               v-model="password"
               type="password"
+              :error-messages="passwordErrorMessages"
+              @keydown="clearPasswordErrors"
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
@@ -39,7 +41,8 @@
     data () {
       return {
         username: 'admin',
-        password: null
+        password: null,
+        passwordErrorMessages: []
       }
     },
     mounted: function () {
@@ -55,11 +58,18 @@
     methods: {
       login: function () {
         const self = this
-        this.getAuthToken({username: this.username, password: this.password}).then(() => {
-          self.$router.push('/admin')
-          console.log(self.$router)
-          console.log('got auth token')
-        })
+        this.getAuthToken({username: this.username, password: this.password})
+          .then(() => {
+            self.$router.push('/admin')
+            this.passwordErrorMessages = []
+          }, ({response}) => {
+            if (response.status === 400) {
+              this.passwordErrorMessages = ['Invalid password']
+            }
+          })
+      },
+      clearPasswordErrors: function () {
+        this.passwordErrorMessages = []
       },
       ...mapActions([
         'getAuthToken'
@@ -72,6 +82,7 @@
     padding-bottom: 0;
     padding-top: 0;
   }
+
   .logincard .input-group {
     padding-bottom: 0;
   }
