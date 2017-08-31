@@ -26,6 +26,16 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-snackbar
+      :timeout="timeout"
+      top
+      vertical
+      error
+      v-model="snackbar"
+    >
+      {{ snackbarErrorMessage }}
+      <v-btn dark flat @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -42,7 +52,10 @@
       return {
         username: 'admin',
         password: null,
-        passwordErrorMessages: []
+        passwordErrorMessages: [],
+        snackbar: false,
+        timeout: 6000,
+        snackbarErrorMessage: ''
       }
     },
     mounted: function () {
@@ -63,8 +76,14 @@
             self.$router.push('/admin')
             this.passwordErrorMessages = []
           }, ({response}) => {
-            if (response.status === 400) {
+            if (!response) {
+              this.snackbar = true
+              this.snackbarErrorMessage = 'No response from server. Unable to login'
+            } else if (response.status === 400) {
               this.passwordErrorMessages = ['Invalid password']
+            } else {
+              this.snackbar = true
+              this.snackbarErrorMessage = 'Unexpected server response. Unable to login'
             }
           })
       },
