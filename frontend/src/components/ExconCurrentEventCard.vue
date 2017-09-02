@@ -2,16 +2,16 @@
   <v-card class="elevation-10" v-if="admin">
     <div class="display-3 grey--text text--darken-1 text-xs-center">{{currentEventLabelArabic}}
       <span v-if="admin">
-        <v-btn fab primary dark medium @click.native="beginEditingEvent" class="edit-message-button"
-               v-if="!editingEvent">
+        <v-btn fab icon primary dark medium @click.native="beginEditingEvent" class="edit-message-button"
+               v-if="!editingEvent" :disabled="!socketConnected">
           <v-icon>edit</v-icon>
         </v-btn>
-        </v-btn>
-        <v-btn fab error dark medium @click.native="editingEvent = false" class="edit-message-button"
-               v-if="editingEvent">
+        <v-btn fab icon error dark medium @click.native="editingEvent = false" class="edit-message-button"
+               v-if="editingEvent" :disabled="!socketConnected">
           <v-icon>cancel</v-icon>
         </v-btn>
-        <v-btn fab success dark medium @click.native="submitNewEvent" class="edit-message-button" v-if="editingEvent">
+        <v-btn fab icon success dark medium @click.native="submitNewEvent" class="edit-message-button"
+               v-if="editingEvent" :disabled="!socketConnected">
           <v-icon>save</v-icon>
         </v-btn>
       </span>
@@ -32,7 +32,7 @@
     <v-card-text v-else>
       <v-layout class="event-admin-view">
         <v-flex xs-3 class="text-xs-right">
-          <v-btn fab dark medium primary @click="decrementEventNumber">
+          <v-btn fab icon dark medium primary @click="decrementEventNumber" :disabled="!socketConnected">
             <v-icon>remove</v-icon>
           </v-btn>
         </v-flex>
@@ -40,7 +40,7 @@
           <h2 class="text-xs-center">{{eventNumber}}</h2>
         </v-flex>
         <v-flex xs-3 class="text-xs-left">
-          <v-btn fab dark medium primary @click="incrementEventNumber">
+          <v-btn fab icon dark medium primary @click="incrementEventNumber" :disabled="!socketConnected">
             <v-icon>add</v-icon>
           </v-btn>
         </v-flex>
@@ -67,7 +67,8 @@
     ],
     computed: {
       ...mapGetters({
-        eventNumber: 'eventNumber'
+        eventNumber: 'eventNumber',
+        socketConnected: 'socketConnected'
       }),
       currentEventLabelEnglish: function () {
         return this.$i18n.t('message.currentEventLabel', 'en')

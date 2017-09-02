@@ -22,7 +22,8 @@ const getters = {
   eventNumber: state => state.eventNumber,
   virtualClockTime: state => state.virtualClockTime,
   virtualClockRate: state => state.virtualClockRate,
-  realClockTime: state => state.realClockTime
+  realClockTime: state => state.realClockTime,
+  socketConnected: state => state.socketConnected
 }
 
 function streamAdminChange (args, obj) {

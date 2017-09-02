@@ -3,16 +3,16 @@
     <v-card class="elevation-10">
       <div class="display-3 grey--text text--darken-1 text-xs-center">{{$t("message.exconMessageLabel", "ar")}}
         <span v-if="admin">
-          <v-btn fab primary dark medium @click.native="beginEditingMessage" class="edit-message-button"
-                 v-if="!editingMessage">
+          <v-btn icon fab primary dark medium @click.native="beginEditingMessage" class="edit-message-button"
+                 v-if="!editingMessage" :disabled="!socketConnected">
             <v-icon>edit</v-icon>
           </v-btn>
           <v-btn fab error dark medium @click.native="editingMessage = false" class="edit-message-button"
-                 v-if="editingMessage">
+                 v-if="editingMessage" :disabled="!socketConnected">
             <v-icon>cancel</v-icon>
           </v-btn>
           <v-btn fab success dark medium @click.native="submitNewMessage" class="edit-message-button"
-                 v-if="editingMessage">
+                 v-if="editingMessage" :disabled="!socketConnected">
             <v-icon>save</v-icon>
           </v-btn>
         </span>
@@ -47,7 +47,8 @@
     ],
     computed: {
       ...mapGetters({
-        message: 'message'
+        message: 'message',
+        socketConnected: 'socketConnected'
       })
     },
     data () {
