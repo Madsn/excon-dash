@@ -5,23 +5,29 @@
         <router-view></router-view>
       </v-container>
     </main>
+    <v-snackbar
+      secondary
+      bottom
+      vertical
+      v-model="serverConnectivityWarning"
+    >
+      <span>
+        <v-icon error class="pr-2">warning</v-icon>Connection to server lost. Reconnecting...
+      </span>
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
-    data () {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'bubble_chart', title: 'Inspire' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'
+    computed: {
+      ...mapGetters({
+        socketConnected: 'socketConnected'
+      }),
+      serverConnectivityWarning: function () {
+        return !this.socketConnected
       }
     }
   }
