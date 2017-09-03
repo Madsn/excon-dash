@@ -90,15 +90,15 @@ const mutations = {
     state.stateChangeTimestamp = data.created ? moment(data.created, moment.ISO_8601) : null
   },
   [types.UPDATE_CLOCKS] (state, message) {
+    let now = moment()
+    state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
     if (state.virtualClockSeed === null || state.stateChangeTimestamp === null) {
       return null
     }
-    let now = moment()
     let diffRealToNow = now.diff(state.stateChangeTimestamp, 'seconds')
     let adjustedDiffRealToNow = diffRealToNow * (state.virtualClockRate)
     state.virtualClockTime = state.virtualClockSeed.clone().add(adjustedDiffRealToNow, 'seconds')
       .format('DDHHmm[D]MMMYY (HH:mm:ss)').toUpperCase()
-    state.realClockTime = moment().format('DDHHmm[D]MMMYY').toUpperCase()
   },
   [types.INCREMENT_EVENT] (state) {
     state.eventNumber = isNaN(state.eventNumber) ? 1 : state.eventNumber + 1
