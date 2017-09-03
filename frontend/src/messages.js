@@ -11,7 +11,7 @@ const messages = {
   ar: {
     message: {
       hello: 'مرحبا بالعالم',
-      virtualClockLabel: 'السابق. الوقت، السرعة:',
+      virtualClockLabel: 'السابق. الوقت، السرعة',
       realTimeLabel: 'في الوقت الحالى',
       exconMessageLabel: 'رسالة من إكسكون',
       currentEventLabel: 'هدف'

@@ -1,23 +1,26 @@
 <template>
   <v-card class="elevation-10">
     <div class="display-3 grey--text text--darken-1 text-xs-center">
-      <v-btn fab dark medium primary @click="decrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
+      <v-btn fab icon dark medium primary @click="decrementClockSpeedClicked" class="clock-speed-adjuster"
+             v-if="admin" :disabled="!socketConnected">
         <v-icon>remove</v-icon>
       </v-btn>
-      {{$t("message.virtualClockLabel", "ar")}}
-      <v-btn fab dark medium primary @click="incrementClockSpeedClicked" class="clock-speed-adjuster" v-if="admin">
+      {{virtualClockRate}}
+      <v-btn fab icon dark medium primary @click="incrementClockSpeedClicked" class="clock-speed-adjuster"
+             v-if="admin" :disabled="!socketConnected">
         <v-icon>add</v-icon>
       </v-btn>
-      {{virtualClockRate}}
+      <span>:{{$t("message.virtualClockLabel", "ar")}}</span>
     </div>
     <div class="display-5 grey--text text--darken-1 text-xs-center card-subtitle">
       {{$t("message.virtualClockLabel", "en")}} {{virtualClockRate}}
     </div>
     <h2 class="text-xs-center">{{virtualClockTime}}
-      <v-btn fab dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px" v-if="admin">
+      <v-btn fab icon dark medium primary @click.native.stop="openTimePicker" style="margin-top: -2px"
+             v-if="admin" :disabled="!socketConnected">
         <v-icon>edit</v-icon>
       </v-btn>
-      <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin" style="margin-bottom: -9px">
+      <v-dialog v-model="dialog" lazy absolute width="640" v-if="admin" class="mt-1">
         <v-card>
           <v-card-text>
             <v-date-picker v-model="selectedDate" actions landscape :autosave="false"
@@ -29,7 +32,9 @@
             <v-btn class="blue--text darken-1" flat @click="closeTimePicker">
               Cancel
             </v-btn>
-            <v-btn class="blue--text darken-1" flat @click="submitVirtualClock" @click.native="closeTimePicker">Save
+            <v-btn class="blue--text darken-1" flat @click="submitVirtualClock"
+                   @click.native="closeTimePicker" :disabled="!socketConnected">
+              Save
             </v-btn>
           </v-card-actions>
         </v-card>
