@@ -1,6 +1,6 @@
 <template>
   <v-toolbar class="elevation-10">
-    <img src="/static/systematic_logo.png" height="34px" @click="$router.push('limited')"/>
+    <img src="/static/systematic_logo.png" height="34px" @click="$router.push('limited')" class="clickable"/>
     <v-toolbar-title>Exercise Dash</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="isAuthenticated">
@@ -28,3 +28,9 @@
     }
   }
 </script>
+
+<style>
+  .clickable {
+    cursor: pointer;
+  }
+</style>
