@@ -54,7 +54,8 @@
     computed: {
       ...mapGetters({
         virtualClockTime: 'virtualClockTime',
-        virtualClockRate: 'virtualClockRate'
+        virtualClockRate: 'virtualClockRate',
+        socketConnected: 'socketConnected'
       }),
       cardTitle: function () {
         return `Exercise time, speed: ${this.virtualClockRate}x`
